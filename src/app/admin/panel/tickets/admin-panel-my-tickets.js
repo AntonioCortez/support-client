@@ -26,6 +26,7 @@ class AdminPanelMyTickets extends React.Component {
     state = {
         closedTicketsShown: false,
         departmentId: null,
+        value:'',
     };
 
     componentDidMount() {
@@ -36,7 +37,11 @@ class AdminPanelMyTickets extends React.Component {
         return (
             <div className="admin-panel-my-tickets">
                 <Header title={i18n('MY_TICKETS')} description={i18n('MY_TICKETS_DESCRIPTION')} />
-                {(this.props.error) ? <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> : <TicketList {...this.getProps()}/>}
+                {
+                    (this.props.error) ? 
+                    <Message type="error">{i18n('ERROR_RETRIEVING_TICKETS')}</Message> 
+                    : <TicketList {...this.getProps()}/>
+                }
                 <div style={{textAlign: 'right', marginTop: 10}}>
                     <Button onClick={this.onCreateTicket.bind(this)} type="secondary" size="medium">
                         <Icon size="sm" name="plus"/> {i18n('CREATE_TICKET')}
@@ -56,6 +61,7 @@ class AdminPanelMyTickets extends React.Component {
             ticketPath: '/admin/panel/tickets/view-ticket/',
             closedTicketsShown: this.state.closedTicketsShown,
             onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this),
+            onSearch:this.onSearch.bind(this),
             pages: this.props.pages,
             page: this.props.page,
             onPageChange: event => this.retrieveMyTickets(event.target.value),
@@ -70,6 +76,14 @@ class AdminPanelMyTickets extends React.Component {
         this.setState(function(state) {
             return {
                 closedTicketsShown: !state.closedTicketsShown
+            };
+        }, () => this.retrieveMyTickets());
+    }
+
+    onSearch(query){
+        this.setState(function(state) {
+            return {
+                title: query
             };
         }, () => this.retrieveMyTickets());
     }
@@ -90,8 +104,8 @@ class AdminPanelMyTickets extends React.Component {
         this.retrieveMyTickets();
     }
 
-    retrieveMyTickets(page = this.props.page, closed = this.state.closedTicketsShown, departmentId = this.state.departmentId) {
-        this.props.dispatch(AdminDataAction.retrieveMyTickets(page, closed * 1, departmentId));
+    retrieveMyTickets(page = this.props.page, closed = this.state.closedTicketsShown, departmentId = this.state.departmentId, title = this.state.title ) {
+        this.props.dispatch(AdminDataAction.retrieveMyTickets(page, closed * 1, departmentId, title));
     }
 }
 
