@@ -9,6 +9,7 @@ import DateTransformer from 'lib-core/date-transformer';
 import TicketInfo from 'app-components/ticket-info';
 import DepartmentDropdown from 'app-components/department-dropdown';
 import Table from 'core-components/table';
+import SearchBox from 'core-components/search-box';
 import Button from 'core-components/button';
 import Tooltip from 'core-components/tooltip';
 import Checkbox from 'core-components/checkbox';
@@ -31,6 +32,7 @@ class TicketList extends React.Component {
         closedTicketsShown: React.PropTypes.bool,
         onClosedTicketsShownChange: React.PropTypes.func,
         onDepartmentChange: React.PropTypes.func,
+        onSearch:  React.PropTypes.func,
     };
 
     static defaultProps = {
@@ -51,6 +53,7 @@ class TicketList extends React.Component {
         return (
             <div className="ticket-list">
                 <div className="ticket-list__filters">
+                <SearchBox className="ticket-list__search-box" placeholder={i18n('SEARCH_TICKETS')} onSearch={this.props.onSearch} />
                     {this.props.type === 'primary' ? this.renderMessage() : null}
                     {
                         (this.props.type === 'secondary' && this.props.showDepartmentDropdown) ?
@@ -288,6 +291,8 @@ class TicketList extends React.Component {
               }
         }
     }
+
+
 }
 
 export default connect((store) => {
