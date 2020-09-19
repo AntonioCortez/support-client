@@ -22,6 +22,7 @@ build/Release
 node_modules
 bower_components
 api/vendor
+package-lock.json
 
 # Build files
 build
