@@ -26,7 +26,7 @@ class AdminPanelMyTickets extends React.Component {
     state = {
         closedTicketsShown: false,
         departmentId: null,
-        value:'',
+        title:'',
     };
 
     componentDidMount() {
@@ -34,6 +34,7 @@ class AdminPanelMyTickets extends React.Component {
     }
 
     render() {
+        console.log("ajuaaaa... ", this.props.userLevel*1);//quitar despues
         return (
             <div className="admin-panel-my-tickets">
                 <Header title={i18n('MY_TICKETS')} description={i18n('MY_TICKETS_DESCRIPTION')} />
@@ -61,13 +62,14 @@ class AdminPanelMyTickets extends React.Component {
             ticketPath: '/admin/panel/tickets/view-ticket/',
             closedTicketsShown: this.state.closedTicketsShown,
             onClosedTicketsShownChange: this.onClosedTicketsShownChange.bind(this),
-            onSearch:this.onSearch.bind(this),
+            onChange: this.onChange.bind(this),
+            onSearch: this.onSearch.bind(this),
             pages: this.props.pages,
             page: this.props.page,
             onPageChange: event => this.retrieveMyTickets(event.target.value),
             onDepartmentChange: departmentId => {
                 this.setState({departmentId});
-                this.retrieveMyTickets(1, this.state.closedTicketsShown, departmentId);
+                this.retrieveMyTickets(1, this.state.closedTicketsShown, departmentId, this.state.title);
             },
         };
     }
@@ -78,6 +80,12 @@ class AdminPanelMyTickets extends React.Component {
                 closedTicketsShown: !state.closedTicketsShown
             };
         }, () => this.retrieveMyTickets());
+    }
+
+    onChange(valing) {
+        this.setState({
+            title: valing
+        });
     }
 
     onSearch(query){
@@ -112,6 +120,7 @@ class AdminPanelMyTickets extends React.Component {
 export default connect((store) => {
     return {
         userId: store.session.userId*1,
+        userLevel: store.session.userLevel*1,
         departments: store.session.userDepartments,
         tickets: store.adminData.myTickets,
         page: store.adminData.myTicketsPage,

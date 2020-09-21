@@ -53,7 +53,7 @@ class TicketList extends React.Component {
         return (
             <div className="ticket-list">
                 <div className="ticket-list__filters">
-                <SearchBox className="ticket-list__search-box" placeholder={i18n('SEARCH_TICKETS')} onSearch={this.props.onSearch} />
+                <SearchBox className="ticket-list__search-box" placeholder={i18n('SEARCH_TICKETS')} onChange={this.props.onChange} onSearch={this.props.onSearch} />
                     {this.props.type === 'primary' ? this.renderMessage() : null}
                     {
                         (this.props.type === 'secondary' && this.props.showDepartmentDropdown) ?
