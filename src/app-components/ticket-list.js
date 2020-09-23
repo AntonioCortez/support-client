@@ -8,6 +8,7 @@ import DateTransformer from 'lib-core/date-transformer';
 
 import TicketInfo from 'app-components/ticket-info';
 import DepartmentDropdown from 'app-components/department-dropdown';
+import PaginationDropDown from 'app-components/pagination-dropdown';
 import Table from 'core-components/table';
 import SearchBox from 'core-components/search-box';
 import Button from 'core-components/button';
@@ -40,13 +41,15 @@ class TicketList extends React.Component {
         loading: false,
         tickets: [],
         departments: [],
+        paginations:[],
         ticketPath: '/dashboard/ticket/',
         type: 'primary',
         closedTicketsShown: false
     };
 
     state = {
-        selectedDepartment: 0
+        selectedDepartment: 0,
+        SelectedPagination:10
     };
 
     render() {
@@ -61,6 +64,7 @@ class TicketList extends React.Component {
                             null
                     }
                     {this.props.onClosedTicketsShownChange ? this.renderFilterCheckbox() : null}
+                    {this.renderPaginationDropDown()}
                 </div>
                 <Table {...this.getTableProps()} />
             </div>
@@ -78,6 +82,35 @@ class TicketList extends React.Component {
                 wrapInLabel
             />
         );
+    }
+
+    renderPaginationDropDown(){
+        return (
+            <div className="ticket-list__pagination">
+                <span className="ticket-list__pagination-label">
+                    {i18n('RESULTS_BY_PAGE')}
+                </span>
+                <div className="ticket-list__pagination-selector">
+                    <PaginationDropDown {...this.getPaginationDropdownProps()} />
+                </div>
+            </div>
+        );
+    }
+
+    getPaginationDropdownProps(){
+        return {
+            options: this.props.paginations,
+            onChange: (event) => {
+                const paginationId = this.props.paginations[event.index].name;
+                this.setState({
+                    SelectedPagination: paginationId
+                });
+                if(this.props.onPaginationChange) {
+                    this.props.onPaginationChange(paginationId || null);
+                }
+            },
+            size: 'small'
+        };
     }
 
     renderDepartmentsDropDown() {
@@ -127,7 +160,7 @@ class TicketList extends React.Component {
             loading,
             headers: this.getTableHeaders(),
             rows: this.getTableRows(),
-            pageSize: 10,
+            pageSize: this.state.SelectedPagination,
             page,
             pages,
             onPageChange
@@ -140,7 +173,6 @@ class TicketList extends React.Component {
         departments.unshift({
             name: i18n('ALL_DEPARTMENTS')
         });
-
         return departments;
     }
 

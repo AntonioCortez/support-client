@@ -213,6 +213,7 @@ export default {
     'ENABLE_USER': 'Enable User',
     'DISABLE_USER': 'Disable User',
     'SHOW_CLOSED_TICKETS': 'Show Closed Tickets',
+    'RESULTS_BY_PAGE':'Results by page:',
     'SHOW_MY_TICKETS': 'Show my tickets',
     'IMAGE_HEADER_URL': 'Image header URL',
     'IMAGE_HEADER_DESCRIPTION': 'Image that will be used as header of the email',

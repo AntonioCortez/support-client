@@ -26,6 +26,7 @@ class AdminPanelMyTickets extends React.Component {
     state = {
         closedTicketsShown: false,
         departmentId: null,
+        paginationId: 10,
         title:'',
     };
 
@@ -34,7 +35,8 @@ class AdminPanelMyTickets extends React.Component {
     }
 
     render() {
-        console.log("ajuaaaa... ", this.props.userLevel*1);//quitar despues
+        console.log("admin-panel-my-tickets - ajuaaaa... ", this.props.userLevel*1);//quitar despues
+        console.log("admin-panel-my-tickets.js lo que pasa como departments ", this.props.departments);//quitar despues
         return (
             <div className="admin-panel-my-tickets">
                 <Header title={i18n('MY_TICKETS')} description={i18n('MY_TICKETS_DESCRIPTION')} />
@@ -56,6 +58,7 @@ class AdminPanelMyTickets extends React.Component {
         return {
             userId: this.props.userId,
             departments: this.props.departments,
+            paginations: [{name: 10},{name: 20},{name: 30},{name: 50},{name: 100}],
             tickets: this.props.tickets,
             type: 'secondary',
             loading: this.props.loading,
@@ -68,8 +71,14 @@ class AdminPanelMyTickets extends React.Component {
             page: this.props.page,
             onPageChange: event => this.retrieveMyTickets(event.target.value),
             onDepartmentChange: departmentId => {
+                console.log("onDepartmentChange en admin panel: ",departmentId);
                 this.setState({departmentId});
                 this.retrieveMyTickets(1, this.state.closedTicketsShown, departmentId, this.state.title);
+            },
+            onPaginationChange: paginationId => {
+                console.log("===== onpagination en admin-panel-my-tickets: ",paginationId);
+                this.setState({paginationId});
+                this.retrieveMyTickets(1, this.state.closedTicketsShown, this.state.departmentId, this.state.title, paginationId);
             },
         };
     }
@@ -112,8 +121,8 @@ class AdminPanelMyTickets extends React.Component {
         this.retrieveMyTickets();
     }
 
-    retrieveMyTickets(page = this.props.page, closed = this.state.closedTicketsShown, departmentId = this.state.departmentId, title = this.state.title ) {
-        this.props.dispatch(AdminDataAction.retrieveMyTickets(page, closed * 1, departmentId, title));
+    retrieveMyTickets(page = this.props.page, closed = this.state.closedTicketsShown, departmentId = this.state.departmentId, title = this.state.title, rpp = this.state.paginationId ) {
+        this.props.dispatch(AdminDataAction.retrieveMyTickets(page, closed * 1, departmentId, title, rpp));
     }
 }
 

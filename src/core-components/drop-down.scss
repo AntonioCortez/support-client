@@ -56,6 +56,19 @@
         }
     }
 
+    &_small {
+        width: 100px;
+
+        .drop-down__current-item {
+            border-radius: 4px;
+        }
+
+        .drop-down__list-container {
+            width: 100px;
+            border: 1px solid $light-grey;
+        }
+    }
+
     &_medium {
         width: 200px;
 

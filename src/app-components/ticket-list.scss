@@ -22,6 +22,17 @@
         text-align: center;
     }
 
+    &__pagination-selector{
+        display: inline-block;
+        text-align: center;
+        margin-left: 10px;
+    }
+
+    &__pagination {
+        display: inline-block;
+        float: right;
+    }
+
     &__checkbox {
         display: inline-block;
     }

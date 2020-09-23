@@ -214,6 +214,7 @@ export default {
     'ENABLE_USER': 'Habilitar usuario',
     'DISABLE_USER': 'Deshabilitar usuario',
     'SHOW_CLOSED_TICKETS': 'Mostrar Tickets Cerrados',
+    'RESULTS_BY_PAGE':'Resultados por página:',
     'LOCKED': 'bloqueado',
     'IMAGE_HEADER_URL': 'URL del encabezado de la imagen',
     'IMAGE_HEADER_DESCRIPTION': 'Imagen que se utilizará como encabezado del correo electrónico.',
