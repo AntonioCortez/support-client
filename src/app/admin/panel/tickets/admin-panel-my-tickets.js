@@ -36,7 +36,6 @@ class AdminPanelMyTickets extends React.Component {
 
     render() {
         console.log("admin-panel-my-tickets - ajuaaaa... ", this.props.userLevel*1);//quitar despues
-        console.log("admin-panel-my-tickets.js lo que pasa como departments ", this.props.departments);//quitar despues
         return (
             <div className="admin-panel-my-tickets">
                 <Header title={i18n('MY_TICKETS')} description={i18n('MY_TICKETS_DESCRIPTION')} />
@@ -55,6 +54,7 @@ class AdminPanelMyTickets extends React.Component {
     }
 
     getProps() {
+        console.log("admin-panel-my-tickets 58 - validado parámetros paginación: pages page ",this.props.pages,this.props.page,);
         return {
             userId: this.props.userId,
             departments: this.props.departments,

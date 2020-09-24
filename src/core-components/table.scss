@@ -58,7 +58,9 @@
     }
 
     &__navigation {
+        display: inline-block;
         margin-top: 10px;
+        width: 400px;
     }
 
     &__loading-wrapper {

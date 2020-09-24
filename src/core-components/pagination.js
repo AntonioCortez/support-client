@@ -1,7 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import Menu from 'core-components/menu';
+import Button from 'core-components/button';
+import Icon from 'core-components/icon';
 
 class Pagination extends React.Component {
 
@@ -23,7 +26,17 @@ class Pagination extends React.Component {
 
     render() {
         return (
-            <Menu {...this.getProps()}/>
+            <div>
+                <Button onClick={this.onClickArrow.bind(this)} className="pagination_button" type="clean" value="<">
+                    <Icon size="2x" name="angle-left"/>
+                </Button>
+                
+                <Menu {...this.getProps()}/>
+
+                <Button onClick={this.onClickArrow.bind(this)} className="pagination_button" type="clean" value=">">
+                    <Icon size="2x" name="angle-right"/>
+                </Button>
+            </div>
         );
     }
 
@@ -95,6 +108,19 @@ class Pagination extends React.Component {
 
     getPage() {
         return (this.props.page !== undefined) ? this.props.page : this.state.page;
+    }
+
+    onClickArrow(event){
+        let onIndex = _.indexOf(this.getItems(), this.getPage());
+        
+        if( ( event.currentTarget.value == "<" ) && ( this.state.page != 1 ) ){
+            this.onItemClick(onIndex-1);
+        }
+
+        if( ( event.currentTarget.value == ">" ) && ( this.state.page != this.props.pages ) ){
+            this.onItemClick(onIndex+1);
+        }
+
     }
 }
 

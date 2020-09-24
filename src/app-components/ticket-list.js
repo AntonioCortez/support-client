@@ -260,6 +260,7 @@ class TicketList extends React.Component {
 
         return arrowIcon;
     }
+    
     getIconName(header, orderBy) {
         let name = (orderBy && orderBy.value === header && orderBy.asc) ? "up" : "down";
 
